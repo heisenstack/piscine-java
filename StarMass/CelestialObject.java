@@ -1,88 +1,76 @@
-// package StarStatic;
+import java.util.Objects;
+
 public class CelestialObject {
-    public double x;
-    public double y;
-    public double z;
-    public String name;
-    public static final double KM_IN_ONE_AU = 150_000_000.0;
+    private double x = 0.0;
+    private double y = 0.0;
+    private double z = 0.0;
+    private String name = "Soleil";
+    private int mass = 0;
+    
+    public static final double KM_IN_ONE_AU = 150000000.0;
 
     public CelestialObject() {
-        this.x = 0.0;
-        this.y = 0.0;
-        this.z = 0.0;
-        this.name = "Soleil";
     }
 
-    public CelestialObject(String name, double x, double y, double z) {
+    public CelestialObject(String name, double x, double y, double z, int mass) {
+        this.name = name;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.name = name;
-    }
-
-    public void setName() {
-        this.name = "Soleil";
-    }
-
-    public void setX() {
-        this.x = 0.0;
-    }
-
-    public void setY() {
-        this.y = 0.0;
-    }
-
-    public void setZ() {
-        this.z = 0.0;
-    }
-
-    public String getName() {
-        return this.name;
+        this.mass = mass;
     }
 
     public double getX() {
-        return this.x;
-    }
-
-    public double getY() {
-        return this.y;
-    }
-
-    public double getZ() {
-        return this.z;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return x;
     }
 
     public void setX(double x) {
         this.x = x;
     }
 
+    public double getY() {
+        return y;
+    }
+
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double getZ() {
+        return z;
     }
 
     public void setZ(double z) {
         this.z = z;
     }
 
-    public static double getDistanceBetween(CelestialObject obj1, CelestialObject obj2) {
-        double deltaX = obj2.x - obj1.x;
-        double deltaY = obj2.y - obj1.y;
-        double deltaZ = obj2.z - obj1.z;
+    public String getName() {
+        return name;
+    }
 
-        double dis = Math.sqrt(
-                Math.pow(deltaX, 2) +
-                        Math.pow(deltaY, 2) +
-                        Math.pow(deltaZ, 2));
-        return dis;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMass() {
+        return mass;
+    }
+
+    public void setMass(int mass) {
+        this.mass = mass;
+    }
+
+    public static double getDistanceBetween(CelestialObject obj1, CelestialObject obj2) {
+        double deltaX = obj2.getX() - obj1.getX();
+        double deltaY = obj2.getY() - obj1.getY();
+        double deltaZ = obj2.getZ() - obj1.getZ();
+        
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
     }
 
     public static double getDistanceBetweenInKm(CelestialObject obj1, CelestialObject obj2) {
-        double dis = getDistanceBetween(obj1, obj2);
-        return dis * KM_IN_ONE_AU;
+        double distanceInAU = getDistanceBetween(obj1, obj2);
+        return distanceInAU * KM_IN_ONE_AU;
     }
 
     @Override
@@ -92,29 +80,18 @@ public class CelestialObject {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true; 
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-
-        CelestialObject other = (CelestialObject) obj;
-        return Double.compare(x, other.x) == 0 &&
-                Double.compare(y, other.y) == 0 &&
-                Double.compare(z, other.z) == 0 &&
-                (name != null ? name.equals(other.name) : other.name == null);
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        CelestialObject that = (CelestialObject) obj;
+        return Double.compare(that.x, x) == 0 &&
+               Double.compare(that.y, y) == 0 &&
+               Double.compare(that.z, z) == 0 &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        long temp;
-        temp = Double.doubleToLongBits(x);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(z);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return Objects.hash(name, x, y, z);
     }
-
 }

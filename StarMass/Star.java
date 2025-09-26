@@ -1,5 +1,5 @@
-// package StarOverride;
 import java.util.Objects;
+
 public class Star extends CelestialObject {
     private double magnitude = 0.0;
 
@@ -7,8 +7,8 @@ public class Star extends CelestialObject {
         super();
     }
 
-    public Star(String name, double x, double y, double z, double magnitude) {
-        super(name, x, y, z); 
+    public Star(String name, double x, double y, double z, double magnitude, int mass) {
+        super(name, x, y, z, mass);
         this.magnitude = magnitude;
     }
 
@@ -29,7 +29,7 @@ public class Star extends CelestialObject {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        if (!super.equals(obj)) return false; 
+        if (!super.equals(obj)) return false;
         
         Star star = (Star) obj;
         return Double.compare(star.magnitude, magnitude) == 0;

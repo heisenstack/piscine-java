@@ -4,12 +4,12 @@ public class Planet extends CelestialObject {
     private Star centerStar;
 
     public Planet() {
-        super(); 
+        super();
         this.centerStar = new Star();
     }
 
-    public Planet(String name, double x, double y, double z, Star centerStar) {
-        super(name, x, y, z); 
+    public Planet(String name, double x, double y, double z, Star centerStar, int mass) {
+        super(name, x, y, z, mass);
         this.centerStar = centerStar;
     }
 
@@ -32,7 +32,7 @@ public class Planet extends CelestialObject {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        if (!super.equals(obj)) return false; 
+        if (!super.equals(obj)) return false;
         
         Planet planet = (Planet) obj;
         return Objects.equals(centerStar, planet.centerStar);
