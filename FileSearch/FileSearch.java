@@ -1,27 +1,26 @@
 import java.io.File;
 
 public class FileSearch {
-
     public static String searchFile(String fileName) {
-        File startDirectory = new File("documents");
-        return findTheFile(startDirectory, fileName);
+        File baseDir = new File("documents");
+        if (!baseDir.exists() || !baseDir.isDirectory()) {
+            return "documents folder not found.";
+        }
+
+        String result = searchRecursive(baseDir, fileName);
+        return result != null ? result : null;
     }
 
-    private static String findTheFile(File currentDir, String fileNameToFind) {
-        File[] entries = currentDir.listFiles();
+    private static String searchRecursive(File dir, String fileName) {
+        File[] files = dir.listFiles();
+        if (files == null) return null;
 
-        if (entries != null) {
-            for (File entry : entries) {
-                if (entry.isDirectory()) {
-                    String result = findTheFile(entry, fileNameToFind);
-                    if (result != null) {
-                        return result;
-                    }
-                } else {
-                    if (entry.getName().equals(fileNameToFind)) {
-                        return entry.getPath().replace(File.separator, "/");
-                    }
-                }
+        for (File file : files) {
+            if (file.isFile() && file.getName().equals(fileName)) {
+                return file.getPath().replace("\\", "/");
+            } else if (file.isDirectory()) {
+                String found = searchRecursive(file, fileName);
+                if (found != null) return found;
             }
         }
         return null;

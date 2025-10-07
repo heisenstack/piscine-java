@@ -1,39 +1,42 @@
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 public class Galaxy {
     private List<CelestialObject> celestialObjects;
-
+    
     public Galaxy() {
         this.celestialObjects = new ArrayList<>();
     }
-
+    
     public List<CelestialObject> getCelestialObjects() {
-        return celestialObjects;
+        return this.celestialObjects;
     }
-
+    
     public void addCelestialObject(CelestialObject celestialObject) {
-        celestialObjects.add(celestialObject);
+        this.celestialObjects.add(celestialObject);
     }
-
+    
     public Map<String, Integer> computeMassRepartition() {
         Map<String, Integer> massRepartition = new HashMap<>();
         massRepartition.put("Star", 0);
         massRepartition.put("Planet", 0);
         massRepartition.put("Other", 0);
-
-        for (CelestialObject obj : celestialObjects) {
+        
+        for (CelestialObject obj : this.celestialObjects) {
+            String type;
             if (obj instanceof Star) {
-                massRepartition.put("Star", massRepartition.get("Star") + obj.getMass());
+                type = "Star";
             } else if (obj instanceof Planet) {
-                massRepartition.put("Planet", massRepartition.get("Planet") + obj.getMass());
+                type = "Planet";
             } else {
-                massRepartition.put("Other", massRepartition.get("Other") + obj.getMass());
+                type = "Other";
             }
+            
+            massRepartition.put(type, massRepartition.get(type) + obj.getMass());
         }
-
+        
         return massRepartition;
     }
 }

@@ -2,17 +2,13 @@ import java.io.*;
 
 public class Cat {
     public static void cat(String[] args) throws IOException {
-        if (args.length == 0) {
-            return; 
-        }
-
-        String filename = args[0];
-        try (InputStream in = new FileInputStream(filename)) {
-            byte[] buffer = new byte[4096]; 
-            int bytesRead;
-
-            while ((bytesRead = in.read(buffer)) != -1) {
-                System.out.write(buffer, 0, bytesRead);
+        for (String fileName : args) {
+            try {
+                byte[] bytes = java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(fileName));
+                System.out.write(bytes);
+                // System.out.println(bytes);
+            } catch (IOException e) {
+                System.out.println("cat: " + fileName + ": No such file or directory");
             }
         }
     }

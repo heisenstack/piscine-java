@@ -3,8 +3,7 @@ public class Palindrome {
         if (s == null) {
             return false;
         }
-        String newString = s.toLowerCase();
-        String reversed = new StringBuilder(newString).reverse().toString();
-        return reversed.equals(newString);
+        String reveString = new StringBuilder(s.toLowerCase()).reverse().toString();
+        return s.toLowerCase().equals(reveString);
     }
 }

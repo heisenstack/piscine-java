@@ -1,4 +1,3 @@
-// package StarOverride;
 public class ExerciseRunner {
 
     public static void main(String[] args) {
@@ -10,5 +9,6 @@ public class ExerciseRunner {
         System.out.println(proxima.toString());
         System.out.println(star.equals(star2));
         System.out.println(star.equals(proxima));
+        System.out.println(star.hashCode());
     }
 }

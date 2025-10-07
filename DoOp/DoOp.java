@@ -3,15 +3,16 @@ public class DoOp {
         if (args.length != 3) {
             return "Error";
         }
-        int a, b;
+        int a;
+        int b;
         try {
             a = Integer.parseInt(args[0]);
             b = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            return "Error";
+            return "it depend on the input.";
         }
-        String op = args[1];
-        switch (op) {
+        String operator = args[1];
+        switch (operator) {
             case "+":
                 return Integer.toString(a + b);
             case "-":

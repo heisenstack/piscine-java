@@ -3,16 +3,17 @@ public class ComputeArray {
         if (array == null) {
             return null;
         }
-        int[] newArray = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
+        int[] result = new int[array.length];
+        
+        for (int i = 0; i < array.length; i++) {            
             if (array[i] % 3 == 0) {
-                newArray[i] = array[i] * 5;
+                result[i] = array[i] * 5;
             } else if (array[i] % 3 == 1) {
-                newArray[i] = array[i] + 7;
+                result[i] = array[i] + 7;
             } else {
-                newArray[i] = array[i];
+                result[i] = array[i];
             }
         }
-        return newArray;
+        return result;
     }
 }
